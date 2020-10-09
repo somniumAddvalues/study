@@ -9,16 +9,33 @@ import { Menu } from 'components'
 // Switch 컴포넌트를 사용하면 묶여있는 경로 중 가장 먼저 일치하는 경로 하나만
 // 보여준다. 즉, Longest Match Rule 방식으로 하자.
 class App extends Component {
+
+    state = {
+        SplitMe: null
+    }
+
+    showSplitMe = () => {
+        import('components/SplitMe').then(({default: Component}) => {
+            this.setState({
+                SplitMe: Component
+            })
+        })
+    }
+
     render() {
+        const { SplitMe } = this.state
+
         return (
             <div>
-                <Route component={Menu}/>
+                <Menu/>
+                { SplitMe && <SplitMe/>}
+                <button onClick={this.showSplitMe}>ClickMe</button>
                 <Route exact path="/" component={Home}/>
+                <Route path="/posts" component={Posts}/>
                 <Switch>
                     <Route path="/about/:name" component={About}/>
                     <Route path="/about" component={About}/>
                 </Switch>
-                <Route path="/posts" component={Posts}/>
             </div>
         )
     }
