@@ -508,9 +508,12 @@ module.exports = function(webpackEnv) {
       ],
     },
     plugins: [
-      new webpack.optimize.splitChunks({
-        name: 'vendor',
-      }),
+      // 프로덕션 시에만 비동기로
+      isEnvProduction && new webpack.NormalModuleReplacementPlugin(
+        /^pages$/,
+        'pages/index.async.js'
+      ),
+
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         Object.assign(

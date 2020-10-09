@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { Route, Switch } from 'react-router-dom'
-import { Home, About, Posts } from 'pages'
+import { Home, About, Posts } from 'pages'    // 코드 스플리팅 미적용
 import { Menu } from 'components'
 
 // exact 를 넣는 이유 : / 와 /about 중 입력된 주소와 문자열을 매칭하는데
@@ -16,6 +16,8 @@ class App extends Component {
 
     showSplitMe = () => {
         import('components/SplitMe').then(({default: Component}) => {
+
+            // setState가 실행되면 자동으로 리렌더링 된다.
             this.setState({
                 SplitMe: Component
             })
