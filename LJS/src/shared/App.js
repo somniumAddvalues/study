@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { Route, Switch } from 'react-router-dom'
-import { Home, About, Posts } from 'pages'
+import { Home, About, Posts } from 'pages'    // 코드 스플리팅 미적용
 import { Menu } from 'components'
 
 // exact 를 넣는 이유 : / 와 /about 중 입력된 주소와 문자열을 매칭하는데
@@ -9,16 +9,35 @@ import { Menu } from 'components'
 // Switch 컴포넌트를 사용하면 묶여있는 경로 중 가장 먼저 일치하는 경로 하나만
 // 보여준다. 즉, Longest Match Rule 방식으로 하자.
 class App extends Component {
+
+    state = {
+        SplitMe: null
+    }
+
+    showSplitMe = () => {
+        import('components/SplitMe').then(({default: Component}) => {
+
+            // setState가 실행되면 자동으로 리렌더링 된다.
+            this.setState({
+                SplitMe: Component
+            })
+        })
+    }
+
     render() {
+        const { SplitMe } = this.state
+
         return (
             <div>
-                <Route component={Menu}/>
+                <Menu/>
+                { SplitMe && <SplitMe/>}
+                <button onClick={this.showSplitMe}>ClickMe</button>
                 <Route exact path="/" component={Home}/>
+                <Route path="/posts" component={Posts}/>
                 <Switch>
                     <Route path="/about/:name" component={About}/>
                     <Route path="/about" component={About}/>
                 </Switch>
-                <Route path="/posts" component={Posts}/>
             </div>
         )
     }

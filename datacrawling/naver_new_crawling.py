@@ -11,7 +11,7 @@ def main():
     ds = datetime.now() - relativedelta(months=1)
     de = datetime.today().strftime("%Y.%m.%d")
     cnt = 0
-    url = "https://search.naver.com/search.naver?where=news&query={}&ds={}&de={}&start=".format('\"사회공헌\"',ds,de)
+    url = "https://search.naver.com/search.naver?where=news&query={}&ds={}&de={}&start=".format('\"CSR\"',ds,de)
     for n in range(1, 100, 10):
         raw = requests.get(url+str(n), headers={'User-Agent': 'Mozilla/5.0'})
         html = BeautifulSoup(raw.text, "html.parser")
@@ -27,7 +27,7 @@ def main():
             source = ar.select_one("span._sp_each_source").text
             data = [href,title,source]
             data_list.append(data)
-    with open('/Users/imtaebin/Downloads/sample_test.csv', 'w', newline='',encoding="euc-kr") as f:
+    with open('/Users/82107/Downloads/sample_test.csv', 'w', newline='',encoding="euc-kr") as f:
         makewrite = csv.writer(f) 
         for value in data_list: 
             try:
