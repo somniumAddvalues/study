@@ -412,6 +412,9 @@ module.exports = function(webpackEnv) {
                 // See #6846 for context on why cacheCompression is disabled
                 cacheCompression: false,
                 
+                // react-hot-loader를 사용하기 위해 babel의 플러그인 추가
+                plugins: ['react-hot-loader/babel'],
+
                 // Babel sourcemaps are needed for debugging into node_modules
                 // code.  Without the options below, debuggers like VSCode
                 // show incorrect code and set breakpoints on the wrong lines.
