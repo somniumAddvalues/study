@@ -5,9 +5,11 @@ import kr.co.fastcampus.eatgo.service.RestorangService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -29,13 +31,10 @@ public class RestaurantController {
 
     @GetMapping("/rest/{id}")
     public Restorang detail(@PathVariable("id") Long id){
-        Restorang rs = restorangService.getRestroang(id);
-        //기본 정보와 메뉴 정보
 
+            Restorang rs = restorangService.getRestroang(id);
         return rs;
     }
-
-
     @GetMapping("/re")
     public String test(){
         return "hellow world";
@@ -43,18 +42,19 @@ public class RestaurantController {
 
 
     @PostMapping("/rest")
-    public ResponseEntity <?> create(@RequestBody Restorang resource)
+    public ResponseEntity <?> create(@Valid @RequestBody Restorang resource)
             throws URISyntaxException {
         String name = resource.getName();
         String loc = resource.getLoc();
-        Restorang restorang = new Restorang(name, loc);
+//        Restorang restorang = new Restorang(name, loc);
+        Restorang restorang = Restorang.builder().name(name).loc(loc).build();
         restorangService.addRestorang(restorang);
         URI uri = new URI("/rest/1234");
         return ResponseEntity.created(uri).body("{}");
     }
 
     @PatchMapping("/rest/{id}")
-    public String update(@PathVariable("id") Long id, @RequestBody Restorang restorang){
+    public String update(@PathVariable("id") Long id,  @Valid  @RequestBody Restorang restorang){
         String name = restorang.getName();
         String loc = restorang.getLoc();
         restorangService.updateRestorang(id, name, loc);

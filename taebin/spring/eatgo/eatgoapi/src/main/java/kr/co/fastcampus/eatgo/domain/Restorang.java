@@ -1,25 +1,37 @@
 package kr.co.fastcampus.eatgo.domain;
 
+import lombok.*;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Restorang {
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
+
+    @NotEmpty
     private String name;
+    @NotEmpty
     private String loc;
+    private String regionName;
+    private String categoryName;
+    private String tagNames;
 
     @Transient
     private List<MenuItem> menuItems = new ArrayList<>();
 
-    public Restorang() {
-    }
 
     public Restorang(String name){
         this.name = name;
@@ -34,37 +46,14 @@ public class Restorang {
         this.id = id;
     }
 
-    public String getName() {
-        return this.name;
-
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public long getId(){
-        return this.id;
-    }
-
-    public void setLoc(String loc) {
-        this.loc = loc;
-    }
-
-    public String getLoc() {
-        return loc;
-    }
-
     public String getId1(){
         return Long.toString(id);
     }
+
     public List<MenuItem> getMenuItems(){
         return this.menuItems;
     }
+
     public String getInformation(){
         return this.name+" in "+ this.loc;
     }
@@ -74,13 +63,15 @@ public class Restorang {
     }
 
     public void setMenuItems(List<MenuItem> menuItems) {
-        for(MenuItem menuItem: menuItems){
-            addMenuItem(menuItem);
-        }
+        this.menuItems =  new ArrayList<>(menuItems);
+
     }
 
     public void setInformation(String name, String loc) {
     this.name = name;
     this.loc = loc;
     }
+
+
+
 }

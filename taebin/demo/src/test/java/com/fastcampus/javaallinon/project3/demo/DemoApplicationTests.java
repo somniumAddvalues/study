@@ -1,10 +1,10 @@
-package kr.co.fastcampus.eatgo;
+package com.fastcampus.javaallinon.project3.demo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class EatgoApplicationTests {
+class DemoApplicationTests {
 
 	@Test
 	void contextLoads() {
