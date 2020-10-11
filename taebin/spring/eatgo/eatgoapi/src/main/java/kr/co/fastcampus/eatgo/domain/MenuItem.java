@@ -1,12 +1,17 @@
 package kr.co.fastcampus.eatgo.domain;
 
+import lombok.*;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
+@Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
 public class MenuItem {
 
     @Id
@@ -18,34 +23,5 @@ public class MenuItem {
 
     public MenuItem(String name) {
         this.name = name;
-    }
-
-    public MenuItem() {
-
-    }
-
-    public String getName(){
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Id
-    public Long getId() {
-        return id;
-    }
-
-    public Long getRestorandid() {
-        return restorandid;
-    }
-
-    public void setRestorandid(Long restorandid) {
-        this.restorandid = restorandid;
     }
 }
