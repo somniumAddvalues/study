@@ -38,13 +38,27 @@ private MenuItemRepository menuItemRepository;
 
     private void MockMenuItemRepository() {
         List<MenuItem> menuitems = new ArrayList<>();
+<<<<<<< HEAD
         menuitems.add(new MenuItem("kimchi"));
+=======
+        menuitems.add(MenuItem.builder().name("kimchi").build());
+>>>>>>> 12a3e0ad8f8688ae06c488f56729da7c291cc46d
         given(menuItemRepository.findAllByRestorandid(1004L)).willReturn(menuitems);
     }
 
     private void MockRestorangRepository() {
         List<Restorang> restorangs = new ArrayList<>();
+<<<<<<< HEAD
         Restorang restorang= new Restorang("Bob zip","Seoul",1004L);
+=======
+       //Restorang restorang= new Restorang("Bob zip","Seoul",1004L);
+        Restorang restorang = Restorang.builder()
+                .id(1004L)
+                .name("Bob zip")
+                .loc("Seoul")
+                .menuItems(new ArrayList<MenuItem>())
+                .build();
+>>>>>>> 12a3e0ad8f8688ae06c488f56729da7c291cc46d
         restorangs.add(restorang);
 
         given(restorangRepository.findAll()).willReturn(restorangs);
@@ -73,14 +87,52 @@ private MenuItemRepository menuItemRepository;
         Restorang r = a.get(0);
         assertThat(r.getId(),is(1004L));
     }
+<<<<<<< HEAD
+=======
+    @Test
+    public void getRestroangWithExisted() {
+        Restorang restorang = restorangService.getRestroang(1004L);
+        assertThat(restorang.getId(),is(1004L));
+
+        MenuItem menuItem = restorang.getMenuItems().get(0);
+
+        assertThat(restorang.getId(),is(1004L));
+    }
+
+>>>>>>> 12a3e0ad8f8688ae06c488f56729da7c291cc46d
 
 
     @Test
     public void addRestorang(){
+<<<<<<< HEAD
         Restorang restorang = new Restorang("BeRyoung", "Busan");
         Restorang saved = new Restorang("BeRyoung" ,"Busan",1234L);
 
         given(restorangRepository.save(any())).willReturn(saved);
+=======
+        given(restorangRepository.save(any())).will(invocation -> {
+            Restorang restorang = invocation.getArgument(0);
+            restorang.setId(1234L);
+            return restorang;
+        });
+
+
+        Restorang restorang = Restorang.builder()
+                .name("BeRyong")
+                .loc("Busan")
+                .build();
+
+                //new Restorang("BeRyoung", "Busan");
+//        Restorang saved = Restorang.builder()
+//                                            .id(1234L)
+//                                            .loc("Busan")
+//                                            .name("BeRyong")
+//                                            .build();
+
+                //new Restorang("BeRyoung" ,"Busan",1234L);
+
+
+>>>>>>> 12a3e0ad8f8688ae06c488f56729da7c291cc46d
         Restorang created=  restorangService.addRestorang(restorang);
 
         assertThat(created.getId(),is(1234L));
@@ -89,7 +141,16 @@ private MenuItemRepository menuItemRepository;
 
     @Test
     public void updateRestorang(){
+<<<<<<< HEAD
         Restorang restorang = new Restorang("Bob zip","Seoul",1004L);
+=======
+//        Restorang restorang = new Restorang("Bob zip","Seoul",1004L);
+        Restorang restorang = Restorang.builder()
+                .id(1004L)
+                .name("Bob zip")
+                .loc("Seoul")
+                .build();
+>>>>>>> 12a3e0ad8f8688ae06c488f56729da7c291cc46d
         given(restorangRepository.findByid(1004L)).willReturn(Optional.of(restorang));
 
     Restorang updated = restorangService.updateRestorang(1004L,"Sool zip","Busan");
