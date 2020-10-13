@@ -1,0 +1,58 @@
+/* body *{
+    border: 2px solid;
+} */
+
+/* .container {
+    width: 600px;
+}
+
+.parent{
+    width: 300px;
+}
+
+.child{
+    width: 150px;
+} */
+
+/* .container {
+    width: 600px;
+    font-size: 10px;
+}
+
+.parent {
+    width: 50%;
+    font-size: 2em;
+}
+
+.child {
+    width: 50%;
+} */
+/* .container {
+    width: 60em;
+    font-size: 15px;
+}
+
+.parent {
+    width: 30em;
+    font-size: 2em;
+}
+
+.child {
+    width: 15em;
+    font-size: 2em;
+} */
+
+.container1{
+    width: 50vw;
+    height: 200px;
+    background-color: red;
+}
+
+.container2{
+    width: 200px;
+    height: 300px;
+    background-color: red;
+
+}
+
+
