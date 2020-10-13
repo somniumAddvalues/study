@@ -5,3 +5,7 @@ const a = 2;
 var c = 3;
 
 let s = 2; 
+
+//연산자
+let value1 = 1+4;
+
