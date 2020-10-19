@@ -59,5 +59,3 @@ class ResultUI(QDialog):
             # widgetItem.setText(item)       # 여러 속성 추가 가능
 
             self.listWidget.addItem(item)  # Text만 추가할 경우 간단하게
-
-    def 
