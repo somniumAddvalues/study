@@ -1,1 +1,3 @@
 taebin/html/js/.jshintrc
+.vscode/settings.json
+./taebin/html/js/node_modules/
