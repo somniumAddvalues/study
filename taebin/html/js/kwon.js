@@ -26,5 +26,5 @@ function getName(animal){
     return animal && animal.name;
 }
 
-console.log(getName(dog))
+console.log(getName(dog));
 
