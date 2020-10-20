@@ -7,9 +7,26 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import QDate
+from PyQt5.QtCore import QDate, QThread
 from GUI.resultUI import resultUI
 from crawling import naver
+
+class myThread(QThread):
+    def __init__(self, p_window, keyword, target_site, data_num, start_date, end_date):
+        super().__init__()
+        self.p_window = p_window
+        self.keyword = keyword
+        self.target_site = target_site
+        self.dada_num = data_num
+        self.start_date = start_date
+        self.end_date = end_date
+    def run(self):
+        data_list = naver.blog(self.keyword, self.data_num, self.start_date, self.end_date)
+
+        print(data_list)
+
+        resultUI(MainWindow, data_list)
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -133,10 +150,17 @@ class Ui_MainWindow(object):
         # 버튼 클릭 시 -> 크롤링 로직 -> 결과 배열 가져와서 UI 띄움
         #testList = ["https://wikidocs.net/36766", "https://www.acmicpc.net/", "https://wasd222.blogspot.com/"]
 
-        keyword, target_site, data_num, start_date, end_date = self.getParameter()
-        data_list = naver.blog(keyword, data_num, start_date, end_date)
 
-        resultUI(MainWindow, data_list)
+        keyword, target_site, data_num, start_date, end_date = self.getParameter()
+
+        th = myThread(MainWindow, keyword, target_site, data_num, start_date, end_date)
+        th.start()
+
+        #data_list = naver.blog(keyword, data_num, start_date, end_date)
+
+
+
+        #resultUI(MainWindow, data_list)
 
     def getParameter(self):
         keyword = self.lineEdit.text()

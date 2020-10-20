@@ -109,8 +109,6 @@ class resultUI(QDialog):
             self.rowIdx += 1
         url = self.tableWidget.item(self.rowIdx, 0).text()
 
-
-
         self.goUrl(url)
 
     def prevEvent(self):
