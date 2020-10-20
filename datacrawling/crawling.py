@@ -8,22 +8,24 @@ import csv
 # 1 ~ 100까지 10단위로 반복(1, 11, ..., 91)
 
 class naver:
+    
+
     @staticmethod
-    def blog():
+    def blog(keyword, start_date, end_date, num):
         data_list = []
-        start_date = datetime.now() - relativedelta(months=1)
-        end_date = datetime.today().strftime("%Y.%m.%d")
-        keyword = '\"사회공헌\"'
-        data_list = create_article(keyword,start_date,end_date)
+        # start_date = datetime.now() - relativedelta(months=1)
+        # end_date = datetime.today().strftime("%Y.%m.%d")
+        # keyword = '\"사회공헌\"'
+        data_list = naver.create_article(keyword, start_date, end_date, num)
         return data_list
 
     @staticmethod
-    def create_article(keyword,start_date, end_date):
+    def create_article(keyword,start_date, end_date,num):
         cnt = 0
         url = "https://search.naver.com/search.naver?where=post&query={}&ds={}&de={}&start=".format(
             keyword, start_date, end_date)
         data_list = [["주소", "제목"]]
-        for n in range(1, 200, 10):
+        for n in range(1,num, 10):
             raw = requests.get(url+str(n), headers={'User-Agent': 'Mozilla/5.0'})
             html = BeautifulSoup(raw.text, "html.parser")
             articles = html.select("ul.type01 > li > dl > dt")
@@ -53,4 +55,6 @@ class insta:
     def main1():
         print(1)
 
+
+    
 
