@@ -32,7 +32,6 @@ class MainGUI(QWidget):
         col = 0
         checkBoxLayout = QGridLayout()
         for boxName in targetList:
-            print(row, col)
             checkBoxLayout.addWidget(QCheckBox(boxName), row, col)
             row += col
             col = int((col + 1) % 2)

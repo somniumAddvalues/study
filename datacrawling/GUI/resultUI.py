@@ -5,14 +5,17 @@
 # Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
-
+from PyQt5.QtCore import QUrl
 from PyQt5.QtWidgets import *
 from PyQt5 import QtWidgets, QtCore
 from PyQt5 import QtWebEngineWidgets
 
 class ResultUI(QDialog):
+
     def __init__(self, parent, resultList):
         super(ResultUI, self).__init__(parent)
+
+        self.rowIdx = -1
 
         # 리스트, 웹 뷰어 레이아웃 설정
         self.setObjectName("Dialog")
@@ -37,13 +40,15 @@ class ResultUI(QDialog):
         self.pushButton_3.setGeometry(QtCore.QRect(680, 620, 75, 23))
         self.pushButton_3.setObjectName("pushButton_3")
 
+        self.listWidget.itemDoubleClicked.connect(self.urlEvent)
+
         self.createList(resultList)
         self.retranslateUi()
         QtCore.QMetaObject.connectSlotsByName(self)
 
         self.show()
 
-    # 버튼 넣음
+    # 버튼 넣음(테스트용으로 만든 거라 추후 수정)
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
         self.setWindowTitle(_translate("Dialog", "Dialog"))
@@ -52,6 +57,33 @@ class ResultUI(QDialog):
         self.pushButton_4.setText(_translate("Dialog", "이전"))
         self.pushButton_3.setText(_translate("Dialog", "취소(삭제)"))
 
+        self.pushButton.clicked.connect(self.urlEvent)
+        self.pushButton_2.clicked.connect(self.nextEvent)
+        self.pushButton_4.clicked.connect(self.prevEvent)
+
+    def urlEvent(self):
+        url = self.listWidget.currentItem().text()
+
+        self.rowIdx = self.listWidget.currentRow()
+
+        self.goUrl(url)
+
+    def nextEvent(self):
+        if self.rowIdx >= self.listWidget.count() - 1:
+            return
+        self.rowIdx += 1
+        url = self.listWidget.item(self.rowIdx).text()
+
+        self.goUrl(url)
+
+    def prevEvent(self):
+        if self.rowIdx <= 0:
+            return
+        self.rowIdx -= 1
+        url = self.listWidget.item(self.rowIdx).text()
+
+        self.goUrl(url)
+
     def createList(self, resultList):
         # 결과 리스트의 값들을 listWidget에 추가
         for item in resultList:
@@ -59,3 +91,6 @@ class ResultUI(QDialog):
             # widgetItem.setText(item)       # 여러 속성 추가 가능
 
             self.listWidget.addItem(item)  # Text만 추가할 경우 간단하게
+
+    def goUrl(self, url):
+        self.webEngineView.load(QUrl(url))
