@@ -8,7 +8,8 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QDate
-from GUI.resultUI import ResultUI
+from GUI.resultUI import resultUI
+from crawling import naver
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -109,6 +110,7 @@ class Ui_MainWindow(object):
 
         # 버튼에 이벤트 장착
         self.pushButton.clicked.connect(self.btnOkClicked)
+        self.lineEdit.returnPressed.connect(self.btnOkClicked)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -129,9 +131,22 @@ class Ui_MainWindow(object):
 
     def btnOkClicked(self):
         # 버튼 클릭 시 -> 크롤링 로직 -> 결과 배열 가져와서 UI 띄움
-        testList = ["https://wikidocs.net/36766", "https://www.acmicpc.net/", "https://wasd222.blogspot.com/"]
+        #testList = ["https://wikidocs.net/36766", "https://www.acmicpc.net/", "https://wasd222.blogspot.com/"]
 
-        ResultUI(MainWindow, testList)
+        keyword, target_site, data_num, start_date, end_date = self.getParameter()
+        data_list = naver.blog(keyword, data_num, start_date, end_date)
+
+        resultUI(MainWindow, data_list)
+
+    def getParameter(self):
+        keyword = self.lineEdit.text()
+        target_site = self.comboBox.currentText()
+        data_num = self.spinBox.value()
+        start_date = self.dateEdit.date()
+        end_date = self.dateEdit_2.date()
+
+        return keyword, target_site, data_num, start_date, end_date
+
 
 if __name__ == "__main__":
     import sys

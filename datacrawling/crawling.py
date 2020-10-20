@@ -7,18 +7,20 @@ import csv
 # 반복1: 기사번호를 변경시키면서 데이터 수집을 반복하기
 # 1 ~ 100까지 10단위로 반복(1, 11, ..., 91)
 
+
 class naver:
     @staticmethod
-    def blog():
+    def blog(keyword, data_num, start_date, end_date):
         data_list = []
-        start_date = datetime.now() - relativedelta(months=1)
-        end_date = datetime.today().strftime("%Y.%m.%d")
-        keyword = '\"사회공헌\"'
-        data_list = create_article(keyword,start_date,end_date)
+        #start_date = datetime.now() - relativedelta(days=1)
+        #end_date = datetime.today().strftime("%Y.%m.%d")
+        #keyword = '\"사회공헌\"'
+        data_list = naver.create_article(keyword,start_date,end_date)
         return data_list
 
     @staticmethod
     def create_article(keyword,start_date, end_date):
+        print("시작")
         cnt = 0
         url = "https://search.naver.com/search.naver?where=post&query={}&ds={}&de={}&start=".format(
             keyword, start_date, end_date)
@@ -29,6 +31,7 @@ class naver:
             articles = html.select("ul.type01 > li > dl > dt")
         # 반복2: 기사에 대해서 반복하면 세부 정보 수집하기
         # 리스트를 사용한 반복문으로 모든 기사에 대해서 제목/언론사 출력
+            print(n)
             for i, ar in enumerate(articles):
                 cnt += 1
                 href = ar.select_one("a")["href"]
