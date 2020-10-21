@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QDialog, QTableWidgetItem
 from PyQt5 import QtWebEngineWidgets
 
-class resultUI(QDialog, QtWebEngineWidgets.QWebEngineView):
+class resultUI(QDialog):
     def __init__(self, parent, data_list):
         super(resultUI, self).__init__(parent)
 
@@ -78,7 +78,6 @@ class resultUI(QDialog, QtWebEngineWidgets.QWebEngineView):
 
         self.tableWidget.itemDoubleClicked.connect(self.urlEvent)
         self.createList(data_list)
-
 
         QtWidgets.QShortcut(QtGui.QKeySequence("Escape"), self, activated=self.on_Escape)
 

@@ -38,9 +38,10 @@ class naver:
             articles = html.select("ul.type01 > li > dl > dt")
         # 반복2: 기사에 대해서 반복하면 세부 정보 수집하기
         # 리스트를 사용한 반복문으로 모든 기사에 대해서 제목/언론사 출력
-            print(n)
+
             for i, ar in enumerate(articles):
                 cnt += 1
+                print("찾는 중... ",cnt)
                 if cnt == num:
                     break
                 else:
