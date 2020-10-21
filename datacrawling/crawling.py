@@ -74,7 +74,7 @@ class insta:
         baseUrl = 'https://www.instagram.com/explore/tags/' 
         #plusUrl = input('검색할 태그를 입력하세요 : ') 
         url = baseUrl + quote_plus(tagName) 
-        chrome_driver = '/Users/imtaebin/Documents/Data_stduy/chromedriver'
+        #chrome_driver = '/Users/imtaebin/Documents/Data_stduy/chromedriver'
         driver = webdriver.Chrome(
             executable_path=chrome_driver,  chrome_options=options)
         driver.get(url) 
