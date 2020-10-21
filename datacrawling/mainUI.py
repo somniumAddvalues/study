@@ -7,32 +7,23 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import QDate, QThread
+from PyQt5.QtCore import QDate, QThread, Qt
 from GUI.resultUI import resultUI
 from crawling import naver
 
 class myThread(QThread):
-    def __init__(self, p_window, keyword, target_site, data_num, start_date, end_date):
+    def __init__(self, parent = None):
+        super(myThread, self).__init__(parent)
+
+class Ui_MainWindow(QtWidgets.QMainWindow):
+    def __init__(self):
         super().__init__()
-        self.p_window = p_window
-        self.keyword = keyword
-        self.target_site = target_site
-        self.dada_num = data_num
-        self.start_date = start_date
-        self.end_date = end_date
-    def run(self):
-        data_list = naver.blog(self.keyword, self.data_num, self.start_date, self.end_date)
 
-        print(data_list)
+        self.th = myThread()
 
-        resultUI(MainWindow, data_list)
-
-
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(485, 233)
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.setObjectName("MainWindow")
+        self.resize(485, 233)
+        self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
         self.horizontalLayoutWidget.setGeometry(QtCore.QRect(20, 10, 431, 51))
@@ -113,14 +104,14 @@ class Ui_MainWindow(object):
         self.label_4.setAlignment(QtCore.Qt.AlignCenter)
         self.label_4.setObjectName("label_4")
         self.gridLayout.addWidget(self.label_4, 0, 1, 1, 1)
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
+        self.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(self)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 485, 25))
         self.menubar.setObjectName("menubar")
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(self)
         self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
+        self.setStatusBar(self.statusbar)
 
         self.dateEdit.setDate(QDate.currentDate().addDays(-7))
         self.dateEdit_2.setDate(QDate.currentDate())
@@ -129,12 +120,14 @@ class Ui_MainWindow(object):
         self.pushButton.clicked.connect(self.btnOkClicked)
         self.lineEdit.returnPressed.connect(self.btnOkClicked)
 
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.retranslateUi()
+        QtCore.QMetaObject.connectSlotsByName(self)
 
-    def retranslateUi(self, MainWindow):
+        self.show()
+
+    def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "검색어 : "))
         self.pushButton.setText(_translate("MainWindow", "검색"))
         self.groupBox.setTitle(_translate("MainWindow", "타겟 사이트"))
@@ -148,19 +141,12 @@ class Ui_MainWindow(object):
 
     def btnOkClicked(self):
         # 버튼 클릭 시 -> 크롤링 로직 -> 결과 배열 가져와서 UI 띄움
-        #testList = ["https://wikidocs.net/36766", "https://www.acmicpc.net/", "https://wasd222.blogspot.com/"]
-
+        # 스레드 생성
+        self.th.start()
 
         keyword, target_site, start_date, end_date, data_num = self.getParameter()
-
-        th = myThread(MainWindow, keyword, target_site, start_date, end_date, data_num)
-        th.start()
-
-        #data_list = naver.blog(keyword, data_num, start_date, end_date)
-
-
-
-        #resultUI(MainWindow, data_list)
+        data_list = naver.blog(keyword, start_date, end_date, data_num)
+        resultUI(self, data_list)
 
     def getParameter(self):
         keyword = self.lineEdit.text()
@@ -171,13 +157,15 @@ class Ui_MainWindow(object):
 
         return keyword, target_site, start_date, end_date, data_num
 
+    # esc 키가 눌렸을 때 종료, keyPressEvent 메서드를 오버라이딩
+    def keyPressEvent(self, e):
+        if e.key() == Qt.Key_Escape:
+            self.close()
+
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
     sys.exit(app.exec_())
 

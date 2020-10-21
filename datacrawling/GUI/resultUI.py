@@ -6,12 +6,12 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt5.QtCore import QUrl
+from PyQt5.QtCore import QUrl, Qt
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QDialog, QTableWidgetItem
 from PyQt5 import QtWebEngineWidgets
 
-class resultUI(QDialog):
+class resultUI(QDialog, QtWebEngineWidgets.QWebEngineView):
     def __init__(self, parent, data_list):
         super(resultUI, self).__init__(parent)
 
@@ -79,6 +79,9 @@ class resultUI(QDialog):
         self.tableWidget.itemDoubleClicked.connect(self.urlEvent)
         self.createList(data_list)
 
+
+        QtWidgets.QShortcut(QtGui.QKeySequence("Escape"), self, activated=self.on_Escape)
+
         self.retranslateUi()
         QtCore.QMetaObject.connectSlotsByName(self)
 
@@ -135,6 +138,6 @@ class resultUI(QDialog):
     def goUrl(self, url):
         self.webEngineView.load(QUrl(url))
 
-
-
-
+    @QtCore.pyqtSlot()
+    def on_Escape(self):
+        self.close()
