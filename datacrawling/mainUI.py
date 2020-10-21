@@ -151,9 +151,9 @@ class Ui_MainWindow(object):
         #testList = ["https://wikidocs.net/36766", "https://www.acmicpc.net/", "https://wasd222.blogspot.com/"]
 
 
-        keyword, target_site, data_num, start_date, end_date = self.getParameter()
+        keyword, target_site, start_date, end_date, data_num = self.getParameter()
 
-        th = myThread(MainWindow, keyword, target_site, data_num, start_date, end_date)
+        th = myThread(MainWindow, keyword, target_site, start_date, end_date, data_num)
         th.start()
 
         #data_list = naver.blog(keyword, data_num, start_date, end_date)
@@ -165,11 +165,11 @@ class Ui_MainWindow(object):
     def getParameter(self):
         keyword = self.lineEdit.text()
         target_site = self.comboBox.currentText()
-        data_num = self.spinBox.value()
         start_date = self.dateEdit.date()
         end_date = self.dateEdit_2.date()
+        data_num = self.spinBox.value()
 
-        return keyword, target_site, data_num, start_date, end_date
+        return keyword, target_site, start_date, end_date, data_num
 
 
 if __name__ == "__main__":
