@@ -127,8 +127,6 @@ class resultUI(QDialog):
         idx = 0
 
         for link, title in resultList:
-            #widgetItem = QTableWidgetItem()
-            #widgetItem.setText(link)       # 여러 속성 추가 가능
 
             self.tableWidget.setItem(idx, 0, QTableWidgetItem(link))  # Text만 추가할 경우 간단하게
             self.tableWidget.setItem(idx, 1, QTableWidgetItem(title))
