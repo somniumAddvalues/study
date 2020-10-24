@@ -25,6 +25,9 @@
   ('pyiboot01_bootstrap',
    'c:\\users\\82107\\anaconda3\\lib\\site-packages\\PyInstaller\\loader\\pyiboot01_bootstrap.py',
    'PYSOURCE'),
+  ('pyi_rth_win32api',
+   'c:\\users\\82107\\anaconda3\\lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_win32api.py',
+   'PYSOURCE'),
   ('pyi_rth_certifi',
    'c:\\users\\82107\\anaconda3\\lib\\site-packages\\_pyinstaller_hooks_contrib\\hooks\\rthooks\\pyi_rth_certifi.py',
    'PYSOURCE'),
@@ -43,7 +46,7 @@
  [],
  False,
  False,
- 1603455266,
+ 1603465412,
  [('run.exe',
    'c:\\users\\82107\\anaconda3\\lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit\\run.exe',
    'EXECUTABLE')])
