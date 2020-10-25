@@ -4,10 +4,9 @@ import { Home, About, Posts, Test } from 'pages'    // 코드 스플리팅 미�
 import { GNB } from 'components'
 import styled from 'styled-components'
 
-const Wrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-`;
+const Body = styled.div`
+    padding-top: 70px;
+`
 
 // exact 를 넣는 이유 : / 와 /about 중 입력된 주소와 문자열을 매칭하는데
 // /가 겹치기 때문에 정확히 / 인 경우에만 홈으로 가도록
@@ -34,18 +33,20 @@ class App extends Component {
         const { SplitMe } = this.state
 
         return (
-            <Wrapper>
+            <div>
                 <GNB/>
-                { SplitMe && <SplitMe/>}
-                <button onClick={this.showSplitMe}>ClickMe</button>
-                <Route exact path="/" component={Home}/>
-                <Route path="/posts" component={Posts}/>
-                <Test/>
-                <Switch>
-                    <Route path="/about/:name" component={About}/>
-                    <Route path="/about" component={About}/>
-                </Switch>
-            </Wrapper>
+                <Body>
+                    { SplitMe && <SplitMe/>}
+                    <button onClick={this.showSplitMe}>ClickMe</button>
+                    <Route exact path="/" component={Home}/>
+                    <Route path="/posts" component={Posts}/>
+                    <Test/>
+                    <Switch>
+                        <Route path="/about/:name" component={About}/>
+                        <Route path="/about" component={About}/>
+                    </Switch>
+                </Body>
+            </div>
         )
     }
 }
