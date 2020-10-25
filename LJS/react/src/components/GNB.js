@@ -12,9 +12,10 @@ import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import SearchIcon from '@material-ui/icons/Search'
 import Drawer from '@material-ui/core/Drawer'
-import MenuItem from '@material-ui/core/MenuItem'
 import InputBase from '@material-ui/core/InputBase'
 import Avatar from '@material-ui/core/Avatar'
+
+import SideMenu from './SideMenu'
 
 //import { AppBar, Toolbar, IconButton, MenuItem, Drawer} from '@material-ui/core'
 //import { Menu } from '@material-ui/icons/Menu'
@@ -135,8 +136,8 @@ const GNB = () => {
                         inputProps={{ 'aria-label': 'search'}}
                     />
                 </div>
-                <Drawer open={toggle} anchor="right">
-                    <MenuItem onClick={toggleClicked}>Home</MenuItem>
+                <Drawer open={toggle} anchor="right" onClick={toggleClicked}>
+                    <SideMenu />
                 </Drawer>
                 <IconButton 
                 disableRipple
