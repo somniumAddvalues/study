@@ -9,20 +9,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QDate, QThread, Qt
 from GUI.resultUI import resultUI
-from crawling import naver
-
-# class myThread(QThread):
-#     def __init__(self, parent = None):
-#         super(myThread, self).__init__(parent)
-#         self.parent = parent
-#
-#     def run(self):
-#         keyword, target_site, start_date, end_date, data_num = self.parent.getParameter()
-#         data_list = naver.blog(keyword, start_date, end_date, data_num)
-#
-#         app = QtWidgets.QApplication(sys.argv)
-#         ui = resultUI(data_list)
-#         sys.exit(app.exec_())
+from crawling import naver, insta
 
 class Ui_MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -148,12 +135,12 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
     def btnOkClicked(self):
         # 버튼 클릭 시 -> 크롤링 로직 -> 결과 배열 가져와서 UI 띄움
-        # 스레드 생성
-        # th = myThread(self)
-        # th.start()
-
         keyword, target_site, start_date, end_date, data_num = self.getParameter()
-        data_list = naver.blog(keyword, start_date, end_date, data_num)
+
+        if target_site == "네이버 블로그":
+            data_list = naver.blog(keyword, start_date, end_date, data_num)
+        elif target_site == "인스타그램":
+            data_list = insta.Crawling(keyword, data_num)
         resultUI(self, data_list)
 
     def getParameter(self):

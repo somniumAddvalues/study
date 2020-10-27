@@ -71,11 +71,15 @@ class insta:
         options.add_argument("disable-gpu")
         #드라이버 넣기
         # 사용자 환경에 맞춰서 driver 설정 필요.
-        chrome_driver = '/Users/imtaebin/Documents/Data_Stduy/chromedriver'
+        #chrome_driver = '/Users/imtaebin/Documents/Data_Stduy/chromedriver'
         baseUrl = 'https://www.instagram.com/explore/tags/' 
         #plusUrl = input('검색할 태그를 입력하세요 : ') 
         url = baseUrl + quote_plus(tagName) 
         #chrome_driver = '/Users/imtaebin/Documents/Data_stduy/chromedriver'
+
+        print("드라이버 로딩중...")
+
+        chrome_driver = './chromedriver'
         driver = webdriver.Chrome(
             executable_path=chrome_driver,  chrome_options=options)
         driver.get(url) 
@@ -85,19 +89,27 @@ class insta:
         imglist = [] 
         #한 페이지당 12개의 주소를 받을 수 있음
         cnt = (num //12)+1
-        print(cnt)
+
+        print("크롤링 시작")
+
+        c = 0
         j = 0
-        for i in range(0, cnt): 
+        for i in range(0, cnt):
             insta = soup.select('.v1Nh3.kIKUG._bz0w') 
             for i in insta: 
                 imgUrl = 'https://www.instagram.com' + i.a['href']
+
+                print("수집 중 : ",c)
+                c += 1
+
                 if j == num:
                     break
                 else:
-                    imglist.append(imgUrl) 
+                    imglist.append([imgUrl, imgUrl])
                     j+=1
             driver.execute_script("window.scrollTo(0, document.body.scrollHeight);") 
             time.sleep(2)
+
         return imglist
 
     
