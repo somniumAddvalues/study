@@ -25,28 +25,29 @@ public class PersonController {
         return personService.getPerson(id);
     }
 
-    @GetMapping
-    public List<Person> getPerson2(){
-        return personService.getPeopleExcludeBlocks();
-    }
+
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void postPerson(@RequestBody  Person person){
+    public void postPerson(@RequestBody  PersonDto person){
 
         personService.put(person);
-        log.info("person -> {}",personRepository.findAll());
+
     }
 
     @PutMapping(value= "/{id}")
     public void modifyPerson(@PathVariable Long id, @RequestBody PersonDto person){
         personService.modify(id,person);
-        log.info("person -> {}",personRepository.findAll());
+
     }
     @PatchMapping(value = "/{id}")
     public void modifyName(@PathVariable Long id,String name){
         personService.modify(id,name);
-        log.info("person -> {}",personRepository.findAll());
-    }
 
+    }
+@DeleteMapping("/{id}")
+    public void deletePerson(@PathVariable Long id){
+    personService.delete(id);
+
+    }
 }
