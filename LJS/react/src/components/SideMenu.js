@@ -8,7 +8,7 @@ const SideMenu = () => {
 
     return (
         <div>
-            <Button href="/about">Bt1</Button>
+            <Button href="/login">로그인으로~</Button>
             <Button>Bt2</Button>
             <Button>Bt3</Button>
         </div>

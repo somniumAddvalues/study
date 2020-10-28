@@ -13,7 +13,6 @@ import MenuIcon from '@material-ui/icons/Menu'
 import SearchIcon from '@material-ui/icons/Search'
 import Drawer from '@material-ui/core/Drawer'
 import InputBase from '@material-ui/core/InputBase'
-import Avatar from '@material-ui/core/Avatar'
 
 import SideMenu from './SideMenu'
 
@@ -70,7 +69,10 @@ const useStyles = makeStyles((theme) => ({
     },
     homeBt: {
         marginRight: 'auto',
-        borderRadius: 0
+        borderRadius: 0,
+        '&:hover': {
+            backgroundColor: fade(theme.palette.common.white, 0),
+        },
     },
     small: {
         width: theme.spacing(5),
@@ -120,7 +122,7 @@ const GNB = () => {
         <AppBar position="fixed">
             
             <Toolbar className={classes.Toolbar}>
-                <IconButton edge="end" color="inherit" aria-label="menu" onClick={toggleClicked}>
+                <IconButton edge="end" color="inherit" aria-label="Menus" onClick={toggleClicked}>
                     <MenuIcon />
                 </IconButton>
                 <div className={classes.search}>
@@ -145,11 +147,9 @@ const GNB = () => {
                 color="inherit" 
                 className={classes.homeBt}
                 href="/"
+                src={"/images/logo192.png"}
                 >
-                    <Avatar 
-                    src={"/images/logo192.png"}
-                    className={classes.small}
-                    />
+                    <img class={classes.small} src="/images/logo192.png"/ >
                 </IconButton>
             </Toolbar>
         </AppBar>

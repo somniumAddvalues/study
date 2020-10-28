@@ -1,12 +1,25 @@
 import React, {Component} from 'react'
 import { Route, Switch } from 'react-router-dom'
-import { Home, About, Posts, Test } from 'pages'    // 코드 스플리팅 미적용
+import { Home, About, Posts, Test, Login, Join, FindEmail } from 'pages'    // 코드 스플리팅 미적용
 import { GNB } from 'components'
 import styled from 'styled-components'
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 
 const Body = styled.div`
     padding-top: 70px;
 `
+
+// palette에선 primary, secondary, error, warning, info, success 총 6개를 지원함.
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: "#03a9f4",
+        },
+        secondary: {
+            main: "#5a8b5c"
+        }
+    }
+})
 
 // exact 를 넣는 이유 : / 와 /about 중 입력된 주소와 문자열을 매칭하는데
 // /가 겹치기 때문에 정확히 / 인 경우에만 홈으로 가도록
@@ -33,20 +46,23 @@ class App extends Component {
         const { SplitMe } = this.state
 
         return (
-            <div>
+            <ThemeProvider theme={theme}>
                 <GNB/>
                 <Body>
                     { SplitMe && <SplitMe/>}
                     <button onClick={this.showSplitMe}>ClickMe</button>
                     <Route exact path="/" component={Home}/>
                     <Route path="/posts" component={Posts}/>
+                    <Route path="/login" component={Login}/>
+                    <Route path="/join" component={Join}/>
+                    <Route path="/find/email" component={FindEmail}/>
                     <Test/>
                     <Switch>
                         <Route path="/about/:name" component={About}/>
                         <Route path="/about" component={About}/>
                     </Switch>
                 </Body>
-            </div>
+            </ThemeProvider>
         )
     }
 }
