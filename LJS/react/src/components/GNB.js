@@ -69,14 +69,15 @@ const useStyles = makeStyles((theme) => ({
     },
     homeBt: {
         marginRight: 'auto',
+        paddingLeft: 5,
         borderRadius: 0,
         '&:hover': {
             backgroundColor: fade(theme.palette.common.white, 0),
         },
     },
     small: {
-        width: theme.spacing(5),
-        height: theme.spacing(3),
+        width: theme.spacing(4),
+        height: theme.spacing(4),
     }
 }))
 
@@ -147,9 +148,8 @@ const GNB = () => {
                 color="inherit" 
                 className={classes.homeBt}
                 href="/"
-                src={"/images/logo192.png"}
                 >
-                    <img class={classes.small} src="/images/logo192.png"/ >
+                    <img class={classes.small} src="/images/logo1.png"/ >
                 </IconButton>
             </Toolbar>
         </AppBar>
