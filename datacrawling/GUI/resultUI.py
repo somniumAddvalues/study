@@ -17,6 +17,9 @@ class resultUI(QDialog):
 
         self.rowIdx = 1
 
+        self.setWindowFlag(Qt.WindowMinimizeButtonHint, True)
+        self.setWindowFlag(Qt.WindowMaximizeButtonHint, True)
+
         self.setObjectName("Dialog")
         self.resize(1344, 822)
         self.gridLayout_3 = QtWidgets.QGridLayout(self)
