@@ -40,21 +40,33 @@ const LoginForm = () => {
     const classes = useStyles()
 
     const [saveChecked, setState] = React.useState(false)
+    const [email, setEmail] = React.useState("")
 
     const handleCheck = () => {
         setState(!saveChecked)
     }
 
-    const loginClicked = () => {
-        console.log("로그인 성공!")
+    const handleChange = (event) => {
+        setEmail(event.target.value)
+        console.log(event.target)
+    }
+
+    const loginClicked = (a, b) => {
+        console.log(a)
+        console.log("mm")
+        console.log(b)
+        alert("로그인 성공!")
     }
 
     return (
         <Container maxWidth="sm" className= {classes.mainContainer}>
             <h1>로그인</h1>
 
-            <TextField className= {classes.inputField} id="outlined-basic" label="이메일" variant="outlined"/>
-            <TextField className= {classes.inputField} id="outlined-basic" label="패스워드" variant="outlined"/>
+            <TextField 
+            error={email === ""} 
+            helperText={email === "" ? "입력란이 공백입니다" : ""}
+            className= {classes.inputField} id="email-input" label="이메일" variant="outlined" value={email} onChange={handleChange}/>
+            <TextField className= {classes.inputField} id="password-input" label="패스워드" variant="outlined"/>
 
             <Box className={classes.TextField}>
                 <FormControlLabel
