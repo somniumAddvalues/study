@@ -149,7 +149,7 @@ const GNB = () => {
                 className={classes.homeBt}
                 href="/"
                 >
-                    <img class={classes.small} src="/images/logo1.png"/ >
+                    <img className={classes.small} src="/images/logo1.png"/ >
                 </IconButton>
             </Toolbar>
         </AppBar>
