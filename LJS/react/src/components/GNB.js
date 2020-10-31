@@ -26,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
         position: 'relative',
         flexDirection: "row-reverse",
     },
+    drawerPaper: {
+        width: "15%",
+    },
     search: {
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
@@ -81,25 +84,6 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-
-// styled-components의 변수 명은 무조건 대문자로 시작
-// const MenuIconWrapper = styled.div`
-//     border: 1px solid black;
-//     width: 100px;
-//     align: right;
-// `;
-
-// const GNBWrapper = styled.div`
-//     display: flex;
-//     flex-direction: column;
-// `;
-
-// const GNBContainer = styled.div`
-//     display: flex;
-//     flex-direction: row-reverse;
-//     background-color: blue;
-// `;
-
 // Link 컴포넌트를 쓰면 <a>태그를 쓰지 않고(새로고침 되지 않고) 
 // 다른 라우트로 이동 가능하다.
 
@@ -107,11 +91,6 @@ const useStyles = makeStyles((theme) => ({
 const GNB = () => {
 
     const classes = useStyles()
-
-    const activeStyle = {
-        color: 'green',
-        fontSize: '2rem'
-    }
 
     const [toggle, setToggle] = useState(false)
 
@@ -139,8 +118,8 @@ const GNB = () => {
                         inputProps={{ 'aria-label': 'search'}}
                     />
                 </div>
-                <Drawer open={toggle} anchor="right" onClick={toggleClicked}>
-                    <SideMenu />
+                <Drawer classes={{paper: classes.drawerPaper}}  open={toggle} anchor="right" onClick={toggleClicked}>
+                    <SideMenu/>
                 </Drawer>
                 <IconButton 
                 disableRipple

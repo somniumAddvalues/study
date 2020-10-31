@@ -52,9 +52,6 @@ const LoginForm = () => {
     }
 
     const loginClicked = (a, b) => {
-        console.log(a)
-        console.log("mm")
-        console.log(b)
         alert("로그인 성공!")
     }
 

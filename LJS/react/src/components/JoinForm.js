@@ -58,78 +58,85 @@ const JoinForm = () => {
     const classes = useStyles()
 
     const [first_name, setFirst] = useState("")
-    const [first_error_check, setFEC] = useState(false)
-    const [first_error_msg, setFEM] = useState("")
+    const [first_error, setFE] = useState(0)
 
     const [second_name, setSecond] = useState("")
-    const [second_error_check, setSEC] = useState(false)
-    const [second_error_msg, setSEM] = useState("")
+    const [second_error, setSE] = useState(0)
 
     const [email, setEmail] = useState("")
-    const [email_error_check, setEEC] = useState(false)
-    const [email_error_msg, setEEM] = useState("")
+    const [email_error, setEE] = useState(0)
 
     const [password, setPassword] = useState("")
-    const [password_error_check, setPEC] = useState(false)
-    const [password_error_msg, setPEM] = useState("")
+    const [password_error, setPE] = useState(0)
 
     const [re_password, setRePassword] = useState("")
-    const [re_password_error_check, setRPEC] = useState(false)
-    const [re_password_error_msg, setRPEM] = useState("")
+    const [re_password_error, setRPE] = useState(0)
 
     const loginClicked = () => {
         alert("회원 가입 성공!")
     }
+
+    const err_msg = [
+        "",
+        "입력란이 공백입니다"
+    ]
 
     const outFocus = (event) => {
 
         switch(event.target.id){
             case "first-name-input":
                 if(first_name === ""){
-                    setFEC(true)
-                    setFEM("입력란이 공백입니다")
+                    setFE(1)
                 }
                 else{
-                    setFEC(false)
+                    setFE(0)
                 }
             break;
             case "second-name-input":
                 if(second_name === ""){
-                    setSEC(true)
-                    setSEM("입력란이 공백입니다")
+                    setSE(1)
                 }
                 else{
-                    setSEC(false)
+                    setSE(0)
                 }
             break;
             case "email-input":
                 if(email === ""){
-                    setEEC(true)
-                    setEEM("입력란이 공백입니다")
+                    setEE(1)
                 }
                 else{
-                    setEEC(false)
+                    setEE(0)
                 }
             break
             case "password-input":
                 if(password === ""){
-                    setPEC(true)
-                    setPEM("입력란이 공백입니다")
+                    setPE(1)
                 }
                 else{
-                    setPEC(false)
+                    setPE(0)
                 }
             break
             case "re-password-input":
                 if(re_password === ""){
-                    setRPEC(true)
-                    setRPEM("입력란이 공백입니다")
+                    setRPE(1)
                 }
                 else{
-                    setRPEC(false)
+                    setRPE(0)
                 }
             break
         }
+    }
+
+    const emailRequest = () => {
+        fetch("/test", {
+            method: "POST",
+            headers: { 'Content-Type': 'application/text' },
+            body: email,
+        })
+        .then(res => res.text())
+        .then(msg => {
+            console.log(msg)
+        })
     }
 
     return (
@@ -139,8 +146,8 @@ const JoinForm = () => {
             <Box className={classes.NameField}>
                 <TextField 
                 required
-                error={first_error_check} 
-                helperText={first_error_msg}
+                error={first_error} 
+                helperText={err_msg[first_error]}
                 className= {classes.inputField} 
                 id="first-name-input" 
                 size="small" 
@@ -155,8 +162,8 @@ const JoinForm = () => {
 
                 <TextField 
                 required
-                error={second_error_check} 
-                helperText={second_error_msg}
+                error={second_error} 
+                helperText={err_msg[second_error]}
                 className= {classes.inputField} 
                 id="second-name-input" 
                 size="small" 
@@ -181,8 +188,8 @@ const JoinForm = () => {
             <Box className={classes.EmailField}>
                 <TextField 
                 required
-                error={email_error_check} 
-                helperText={email_error_msg}
+                error={email_error} 
+                helperText={err_msg[email_error]}
                 className= {classes.inputField} 
                 id="email-input" 
                 size="small" 
@@ -200,14 +207,15 @@ const JoinForm = () => {
                 variant="contained"
                 aria-label="Email Varify"
                 color="primary"
+                onClick={emailRequest}
                 >
                 인증 요청
                 </Button>
             </Box>
             <TextField 
             required
-            error={password_error_check} 
-            helperText={password_error_msg}
+            error={password_error} 
+            helperText={err_msg[password_error]}
             className= {classes.inputField} 
             id="password-input" 
             size="small" 
@@ -220,8 +228,8 @@ const JoinForm = () => {
             />
             <TextField 
             required
-            error={re_password_error_check} 
-            helperText={re_password_error_msg}
+            error={re_password_error} 
+            helperText={err_msg[re_password_error]}
             className= {classes.inputField} 
             id="re-password-input" 
             size="small" 
