@@ -18,6 +18,7 @@ public class PersonDto {
     private String job;
     private  String phoneNumber;
 
+
     public PersonDto(PersonDto personDto) {
         this.name = personDto.getName();
         this.hobby = personDto.getHobby();
@@ -30,4 +31,5 @@ public class PersonDto {
     public static PersonDto of(PersonDto personDto){
         return new PersonDto(personDto);
     }
+
 }

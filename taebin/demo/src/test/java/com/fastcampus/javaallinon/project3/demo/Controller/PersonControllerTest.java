@@ -73,8 +73,6 @@ class PersonControllerTest {
                 .andExpect(jsonPath("$.age").isNumber())
                 .andExpect(jsonPath("$.birthdayToday").isBoolean());
                 //assertTha(result.getName()).isEqualTo("martin) -> java attribute compare
-
-
     }
 
 @Test
@@ -137,9 +135,6 @@ void PostPerson()throws  Exception{
                 MockMvcRequestBuilders.put("/api/person/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(toJsonString(personDto)))
-                .andDo(print())
-                .andExpect(status().isOk());
-
         Person result = personRepository.findById(1L).get();
         assertThat(result.getName()).isEqualTo(("martin"));
 
@@ -171,6 +166,8 @@ void PostPerson()throws  Exception{
                 .andDo(print())
                 .andExpect(status().isOk()));
     }
+
+
 
 @Test
 

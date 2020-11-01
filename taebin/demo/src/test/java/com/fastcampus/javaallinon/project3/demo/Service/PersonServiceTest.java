@@ -13,13 +13,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
+
 
 @ExtendWith(MockitoExtension.class)
 class PersonServiceTest {
@@ -29,6 +30,7 @@ class PersonServiceTest {
     // 해당 대상의 클래스에서 사용되는  클래스들
     @Mock
     private PersonRepository personRepository;
+
 
     private void givenPerson(String name, int age, String bloodType) {
         personRepository.save(Person.builder().name(name).build());
@@ -70,7 +72,7 @@ class PersonServiceTest {
     void put(){
         PersonDto personDto = mockPersonDto();
         personService.put(personDto);
-    }
+
 
     @Test
     void modifyIfPersonNotFound(){
@@ -107,6 +109,11 @@ class PersonServiceTest {
                     && person.getAddress().equals("판교")
                     && person.getJob().equals("programmer");
         }
+    }
+
+    @Test
+    void deletePerson() throws  Exception{
+
     }
 
 }
