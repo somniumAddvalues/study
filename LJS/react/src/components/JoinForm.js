@@ -60,74 +60,86 @@ const JoinForm = () => {
     const classes = useStyles()
 
     const [first_name, setFirst] = useState("")
-    const [first_error, setFE] = useState(0)
+    const [first_error, setFE] = useState("PASS")
 
     const [second_name, setSecond] = useState("")
-    const [second_error, setSE] = useState(0)
+    const [second_error, setSE] = useState("PASS")
 
     const [email, setEmail] = useState("")
-    const [email_error, setEE] = useState(0)
+    const [email_error, setEE] = useState("PASS")
 
     const [password, setPassword] = useState("")
-    const [password_error, setPE] = useState(0)
+    const [password_error, setPE] = useState("PASS")
 
     const [re_password, setRePassword] = useState("")
-    const [re_password_error, setRPE] = useState(0)
+    const [re_password_error, setRPE] = useState("PASS")
 
     const loginClicked = () => {
         alert("회원 가입 성공!")
     }
 
-    const err_msg = [
-        "",
-        "필수 입력입니다",
-        "이메일 형식이 올바르지 않습니다"
-    ]
+    const handleCopy = (e) => {
+        e.preventDefault()
+    }
+
+    const err_msg = {
+        PASS: "",
+        EMPTY: "필수 입력입니다",
+        EMAIL_NOT_CORRECT: "이메일 형식이 올바르지 않습니다",
+        PASSWORD_NOT_CORRECT: "비밀번호는 8자리 이상입니다",
+        PASSWORD_NOT_MATCH: "동일한 비밀번호를 입력해 주세요",
+    }
 
     const outFocus = (event) => {
 
         switch(event.target.id){
             case "first-name-input":
                 if(first_name === ""){
-                    setFE(1)
+                    setFE("EMPTY")
                 }
                 else{
-                    setFE(0)
+                    setFE("PASS")
                 }
             break;
             case "second-name-input":
                 if(second_name === ""){
-                    setSE(1)
+                    setSE("EMPTY")
                 }
                 else{
-                    setSE(0)
+                    setSE("PASS")
                 }
             break;
             case "email-input":
                 if(myValidator("email", email)){
-                    setEE(0)
+                    setEE("PASS")
                 }
                 else if(email === ""){
-                    setEE(1)
+                    setEE("EMPTY")
                 }
                 else{
-                    setEE(2)
+                    setEE("EMAIL_NOT_CORRECT")
                 }
             break
             case "password-input":
-                if(password === ""){
-                    setPE(1)
+                if(myValidator("password", password)){
+                    setPE("PASS")
+                }
+                else if(password === ""){
+                    setPE("EMPTY")
                 }
                 else{
-                    setPE(0)
+                    setPE("PASSWORD_NOT_CORRECT")
                 }
             break
             case "re-password-input":
                 if(re_password === ""){
-                    setRPE(1)
+                    setRPE("EMPTY")
+                }
+                else if(re_password !== password){
+                    setRPE("PASSWORD_NOT_MATCH")
                 }
                 else{
-                    setRPE(0)
+                    setRPE("PASS")
                 }
             break
         }
@@ -152,7 +164,7 @@ const JoinForm = () => {
             <Box className={classes.NameField}>
                 <TextField 
                 required
-                error={first_error} 
+                error={first_error !== "PASS"} 
                 helperText={err_msg[first_error]}
                 className= {classes.inputField} 
                 id="first-name-input" 
@@ -168,7 +180,7 @@ const JoinForm = () => {
 
                 <TextField 
                 required
-                error={second_error} 
+                error={second_error !== "PASS"} 
                 helperText={err_msg[second_error]}
                 className= {classes.inputField} 
                 id="second-name-input" 
@@ -194,7 +206,7 @@ const JoinForm = () => {
             <Box className={classes.EmailField}>
                 <TextField 
                 required
-                error={email_error} 
+                error={email_error !== "PASS"} 
                 helperText={err_msg[email_error]}
                 className= {classes.inputField} 
                 id="email-input" 
@@ -220,30 +232,34 @@ const JoinForm = () => {
             </Box>
             <TextField 
             required
-            error={password_error} 
+            error={password_error !== "PASS"} 
             helperText={err_msg[password_error]}
             className= {classes.inputField} 
             id="password-input" 
             size="small" 
-            label="패스워드를 입력해 주세요" 
+            label="비밀번호" 
             variant="outlined"
+            type="password"
             onChange={(e) => {
                 setPassword(e.target.value)
             }}
+            onPaste={handleCopy}
             onBlur={outFocus}
             />
             <TextField 
             required
-            error={re_password_error} 
+            error={re_password_error !== "PASS"} 
             helperText={err_msg[re_password_error]}
             className= {classes.inputField} 
             id="re-password-input" 
             size="small" 
-            label="패스워드를 한번 더 입력해 주세요" 
+            label="비밀번호 확인" 
             variant="outlined"
             onChange={(e) => {
                 setRePassword(e.target.value)
             }}
+            type="password"
+            onPaste={handleCopy}
             onBlur={outFocus}
             />
 

@@ -1,5 +1,11 @@
 import validator from 'email-validator'
 
+const myPasswordValidator = (text) => {
+    if(text.length < 8)
+        return false
+
+    return true
+}
 
 export const myValidator = (target, text) => {
     
@@ -12,5 +18,7 @@ export const myValidator = (target, text) => {
         break
         case "email":
             return validator.validate(text)
+        case "password":
+            return myPasswordValidator(text)
     }
 }
