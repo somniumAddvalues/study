@@ -26,7 +26,7 @@ const MyAvatar = () => {
 
     return (
         <IconButton className={classes.imgBox}>
-            <img className={classes.myImg} src="/images/logo1.png" width="60%"/>
+            <img className={classes.myImg} src="/images/logo1.png" width="50%"/>
         </IconButton>
     )
 }

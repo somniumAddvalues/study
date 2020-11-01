@@ -118,7 +118,7 @@ const GNB = () => {
                         inputProps={{ 'aria-label': 'search'}}
                     />
                 </div>
-                <Drawer classes={{paper: classes.drawerPaper}}  open={toggle} anchor="right" onClick={toggleClicked}>
+                <Drawer classes={{paper: classes.drawerPaper}}  open={toggle} anchor="right" onClose={toggleClicked}>
                     <SideMenu/>
                 </Drawer>
                 <IconButton 

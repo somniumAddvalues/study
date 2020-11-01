@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import {myValidator} from 'lib/myValidator'
+
 import { makeStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import Container from '@material-ui/core/Container'
@@ -78,7 +80,8 @@ const JoinForm = () => {
 
     const err_msg = [
         "",
-        "입력란이 공백입니다"
+        "필수 입력입니다",
+        "이메일 형식이 올바르지 않습니다"
     ]
 
     const outFocus = (event) => {
@@ -101,11 +104,14 @@ const JoinForm = () => {
                 }
             break;
             case "email-input":
-                if(email === ""){
+                if(myValidator("email", email)){
+                    setEE(0)
+                }
+                else if(email === ""){
                     setEE(1)
                 }
                 else{
-                    setEE(0)
+                    setEE(2)
                 }
             break
             case "password-input":
