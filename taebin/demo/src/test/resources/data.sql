@@ -4,7 +4,3 @@ insert into  person(id,name,year_of_birthday,month_of_birthday,day_of_birthday) 
 insert into  person(id,name,year_of_birthday,month_of_birthday,day_of_birthday) values(4,'sophia',1994,6,30);
 insert into  person(id,name,year_of_birthday,month_of_birthday,day_of_birthday) values(5,'benny',1995,8,30);
 
--- insert into person (id, address, dayof_birthday, month_of_birthday, year_of_birthday, block_id, hobby, job, name, phone_number
-
-
--- insert  into person(id,na) values(1,'john',10,'A');
