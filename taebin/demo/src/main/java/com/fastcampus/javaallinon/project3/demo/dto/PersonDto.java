@@ -17,4 +17,17 @@ public class PersonDto {
     private LocalDate birthday;
     private String job;
     private  String phoneNumber;
+
+    public PersonDto(PersonDto personDto) {
+        this.name = personDto.getName();
+        this.hobby = personDto.getHobby();
+        this.address = personDto.getAddress();
+        this.birthday = personDto.getBirthday();
+        this.job = personDto.getJob();
+        this.phoneNumber = personDto.getPhoneNumber();
+    }
+
+    public static PersonDto of(PersonDto personDto){
+        return new PersonDto(personDto);
+    }
 }

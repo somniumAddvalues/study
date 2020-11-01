@@ -103,33 +103,33 @@ void PostPerson()throws  Exception{
 
 
 
-  @Test
-    void  putPerson() throws Exception {
-      mockMvc.perform(
-              MockMvcRequestBuilders.post("/api/person")
-                      .contentType(MediaType.APPLICATION_JSON)
-                      .content("{\n" +
-                      "    \"name\" :\"martin2\",\n" +
-                      "    \"age\" : 20,\n" +
-                      "    \"bloodType\" : \"A\"\n" +
-                      "}"))
-              .andDo(print())
-              .andExpect(status().isCreated());
-    }
+//  @Test
+//    void  putPerson() throws Exception {
+//      mockMvc.perform(
+//              MockMvcRequestBuilders.post("/api/person")
+//                      .contentType(MediaType.APPLICATION_JSON)
+//                      .content("{\n" +
+//                      "    \"name\" :\"martin2\",\n" +
+//                      "    \"age\" : 20,\n" +
+//                      "    \"bloodType\" : \"A\"\n" +
+//                      "}"))
+//              .andDo(print())
+//              .andExpect(status().isCreated());
+//    }
 
-    @Test
-    void patchPerson() throws Exception {
-        mockMvc.perform(
-                MockMvcRequestBuilders.put("/api/person/1")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\n" +
-                                "    \"name\" :\"martin\",\n" +
-                                "    \"bloodType\" : \"A\"\n" +
-                                "}"))
-                .andDo(print())
-                .andExpect(status().isOk());
-
-    }
+//    @Test
+//    void patchPerson() throws Exception {
+//        mockMvc.perform(
+//                MockMvcRequestBuilders.put("/api/person/1")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content("{\n" +
+//                                "    \"name\" :\"martin\",\n" +
+//                                "    \"bloodType\" : \"A\"\n" +
+//                                "}"))
+//                .andDo(print())
+//                .andExpect(status().isOk());
+//
+//    }
     @Test
     void modifyPerson() throws Exception{
         PersonDto personDto = new PersonDto("martin","programming","판교",LocalDate.now(),"programmer","010-1111-2222");
