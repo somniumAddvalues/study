@@ -6,4 +6,5 @@ datacrawling/.idea/
 taebin/html/js/package-lock.json
 datacrawling/dist/
 datacrawling/build/
+datacrawling/__pycache__/
 taebin/html/js/jsconfig.json
