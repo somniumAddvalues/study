@@ -32,10 +32,13 @@ class naver:
         url = "https://search.naver.com/search.naver?where=post&query={}&ds={}&de={}&start=".format(
             keyword, start_date, end_date)
         data_list = [["주소", "제목"]]
+
+        end = False
+
         for n in range(1,num, 10):
             raw = requests.get(url+str(n), headers={'User-Agent': 'Mozilla/5.0'})
             html = BeautifulSoup(raw.text, "html.parser")
-            articles = html.select("ul.type01 > li > dl > dt")
+            articles = html.select("ul.lst_total > li > div")
         # 반복2: 기사에 대해서 반복하면 세부 정보 수집하기
         # 리스트를 사용한 반복문으로 모든 기사에 대해서 제목/언론사 출력
 
@@ -43,13 +46,17 @@ class naver:
                 cnt += 1
                 print("찾는 중... ",cnt)
                 if cnt == num:
+                    end = True
                     break
                 else:
                     href = ar.select_one("a")["href"]
-                    title = ar.select_one("a")["title"]
+                    title = ar.select_one("a.total_tit").text
                     #source = ar.select_one("span._sp_each_source").text
                     data = [href, title]
                     data_list.append(data)
+
+            if end:
+                break
         return data_list
 
     @staticmethod
