@@ -1,0 +1,11 @@
+code:
+    secret: ${random.value}
+    bignumber: ${random.long}
+    uuid: ${random.uuid}
+
+server:
+    port: 1234
+
+---
+spring:
+    profiles: test
