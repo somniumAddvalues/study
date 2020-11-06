@@ -1,38 +1,10 @@
 import React from 'react'
+import {MySlide} from 'components'
 
 const Home = () => {
     return (
         <div>
-            <h2>
-                Home2
-                <br>
-                </br> <br>
-                </br> <br>
-                </br> <br>
-                </br> <br>
-                </br> <br>
-                </br> <br>
-                </br> <br>
-                </br> <br>
-                </br> <br>
-                </br> <br>
-                </br> <br>
-                </br> <br>
-                </br> <br>
-                </br> <br>
-                </br> <br>
-                </br> <br>
-                </br> <br>
-                </br> <br>
-                </br> <br>
-                </br> <br>
-                </br> <br>
-                </br> <br>
-                </br> <br>
-                </br> <br>
-                </br> <br>
-                </br>
-            </h2>
+            <MySlide/>
         </div>
     )
 }
