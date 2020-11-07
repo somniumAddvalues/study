@@ -71,7 +71,7 @@ const PrevArrowBt = styled.button`
     }
 `;
 
-function SampleNextArrow(props) {
+function MyNextArrow(props) {
     const { onClick } = props;
 
     return (
@@ -83,7 +83,7 @@ function SampleNextArrow(props) {
     );
 }
 
-function SamplePrevArrow(props) {
+function MyPrevArrow(props) {
     const { onClick } = props;
 
     return (
@@ -115,8 +115,8 @@ const MySlide = () => {
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 3000,
-        nextArrow: <SampleNextArrow/>,
-        prevArrow: <SamplePrevArrow />
+        nextArrow: <MyNextArrow/>,
+        prevArrow: <MyPrevArrow />
     }
 
     return (

@@ -18,7 +18,9 @@ export const myValidator = (target, text) => {
         break
         case "email":
             return validator.validate(text)
-        case "password":
+        case "pwd1":
+            return myPasswordValidator(text)
+        case "pwd2":
             return myPasswordValidator(text)
     }
 }

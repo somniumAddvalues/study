@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {myValidator} from 'lib/myValidator'
 
 import { makeStyles } from '@material-ui/core/styles'
@@ -68,19 +68,17 @@ const JoinForm = () => {
     const [email, setEmail] = useState("")
     const [email_error, setEE] = useState("PASS")
 
-    const [password, setPassword] = useState("")
-    const [password_error, setPE] = useState("PASS")
+    const [pwd1, setPwd1] = useState("")
+    const [pwd1_error, setPE1] = useState("PASS")
 
-    const [re_password, setRePassword] = useState("")
-    const [re_password_error, setRPE] = useState("PASS")
+    const [pwd2, setPwd2] = useState("")
+    const [pwd2_error, setPE2] = useState("PASS")
 
-    const loginClicked = () => {
-        alert("회원 가입 성공!")
-    }
-
-    const handleCopy = (e) => {
-        e.preventDefault()
-    }
+    const first_name_field = useRef()
+    const second_name_field = useRef()
+    const email_field = useRef()
+    const pwd1_field = useRef()
+    const pwd2_field = useRef()
 
     const err_msg = {
         PASS: "",
@@ -120,40 +118,61 @@ const JoinForm = () => {
                     setEE("EMAIL_NOT_CORRECT")
                 }
             break
-            case "password-input":
-                if(myValidator("password", password)){
-                    setPE("PASS")
+            case "pwd1-input":
+                if(myValidator("pwd1", pwd1)){
+                    setPE1("PASS")
                 }
-                else if(password === ""){
-                    setPE("EMPTY")
+                else if(pwd1 === ""){
+                    setPE1("EMPTY")
                 }
                 else{
-                    setPE("PASSWORD_NOT_CORRECT")
+                    setPE1("PASSWORD_NOT_CORRECT")
                 }
             break
-            case "re-password-input":
-                if(re_password === ""){
-                    setRPE("EMPTY")
+            case "pwd2-input":
+                if(myValidator("pwd2", pwd2)){
+                    if(pwd2 !== pwd1){
+                        setPE2("PASSWORD_NOT_MATCH")
+                    }
+                    else{
+                        setPE2("PASS")
+                    }
                 }
-                else if(re_password !== password){
-                    setRPE("PASSWORD_NOT_MATCH")
+                else if(pwd2 === ""){
+                    setPE2("EMPTY")
                 }
-                else{
-                    setRPE("PASS")
+                else {
+                    setPE2("PASSWORD_NOT_CORRECT")
                 }
             break
         }
     }
 
-    const emailRequest = () => {
-        fetch("/test", {
+    const loginClicked = () => {
+        /*fetch("/join", {
             method: "POST",
-            headers: { 'Content-Type': 'application/text' },
-            body: email,
-        })
-        .then(res => res.text())
-        .then(msg => {
-            console.log(msg)
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                "firstName" : {firstName},
+                "secondName" : {secondName},
+                "email" : {email},
+                "pwd1" : {pwd1},
+                "pwd2" : {pwd2}
+            })
+        })*/
+        first_name_field.current.focus()
+        console.log(first_name_field)
+    }
+
+    const handleCopy = (e) => {
+        e.preventDefault()
+    }
+
+    const emailRequest = () => {
+        fetch("/email/certification", {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(email)
         })
     }
 
@@ -176,6 +195,7 @@ const JoinForm = () => {
                     setFirst(e.target.value)
                 }}
                 onBlur={outFocus}
+                inputRef={first_name_field}
                 />
 
                 <TextField 
@@ -192,9 +212,11 @@ const JoinForm = () => {
                     setSecond(e.target.value)
                 }}
                 onBlur={outFocus}
+                inputRef={second_name_field}
                 />
 
                 <Button
+                disabled
                 className={classes.varifyNameBt}
                 variant="contained"
                 aria-label="Name Varify"
@@ -218,6 +240,7 @@ const JoinForm = () => {
                     setEmail(e.target.value)
                 }}
                 onBlur={outFocus}
+                inputRef={email_field}
                 />
 
                 <Button
@@ -232,35 +255,37 @@ const JoinForm = () => {
             </Box>
             <TextField 
             required
-            error={password_error !== "PASS"} 
-            helperText={err_msg[password_error]}
+            error={pwd1_error !== "PASS"} 
+            helperText={err_msg[pwd1_error]}
             className= {classes.inputField} 
-            id="password-input" 
+            id="pwd1-input" 
             size="small" 
             label="비밀번호" 
             variant="outlined"
             type="password"
             onChange={(e) => {
-                setPassword(e.target.value)
+                setPwd1(e.target.value)
             }}
             onPaste={handleCopy}
             onBlur={outFocus}
+            inputRef={pwd1_field}
             />
             <TextField 
             required
-            error={re_password_error !== "PASS"} 
-            helperText={err_msg[re_password_error]}
+            error={pwd2_error !== "PASS"} 
+            helperText={err_msg[pwd2_error]}
             className= {classes.inputField} 
-            id="re-password-input" 
+            id="pwd2-input" 
             size="small" 
             label="비밀번호 확인" 
             variant="outlined"
             onChange={(e) => {
-                setRePassword(e.target.value)
+                setPwd2(e.target.value)
             }}
             type="password"
             onPaste={handleCopy}
             onBlur={outFocus}
+            inputRef={pwd2_field}
             />
 
             <Button
