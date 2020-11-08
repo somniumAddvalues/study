@@ -77,8 +77,9 @@ const JoinForm = () => {
     // input field 들의 레퍼런스 배열 (왼쪽 위부터 0, 1, 2, 3, 4)
     const fields = useRef([])
 
-    
+    let focusIdx = 0
 
+    // 커서 아웃될 때마다 유효성 검사
     const outFocus = (event) => {
 
         switch(event.target.id){
@@ -100,6 +101,7 @@ const JoinForm = () => {
         }
     }
 
+    // 입력 시마다 유효성 검사
     useEffect(() => {
         if(first_error.err !== "INIT")
             setFE(myValidator("first-name", first_name))
@@ -111,12 +113,6 @@ const JoinForm = () => {
             setPE1(myValidator("pwd1", pwd1))
         if(pwd2_error.err !== "INIT")
             setPE2(myValidator("pwd2", pwd1, pwd2))
-        // if(first_name === "" && first_error !== "PASS"){
-        //     setFE("EMPTY")
-        // }
-        // else{
-        //     setFE("PASS")
-        // }
     }, [first_name, second_name, email, pwd1, pwd2])
 
     const loginClicked = () => {
@@ -131,7 +127,26 @@ const JoinForm = () => {
                 "pwd2" : {pwd2}
             })
         })*/
-        fields.current[0].focus()
+        if(first_error.err !== "PASS"){
+            setFE(myValidator("first-name", first_name))
+            fields.current[0].focus()
+        }
+        else if(second_error.err !== "PASS"){
+            setSE(myValidator("second-name", second_name))
+            fields.current[1].focus()
+        }
+        else if(email_error.err !== "PASS"){
+            setEE(myValidator("email", email))
+            fields.current[2].focus()
+        }
+        else if(pwd1_error.err !== "PASS"){
+            setPE1(myValidator("pwd1", pwd1))
+            fields.current[3].focus()
+        }
+        else if(pwd2_error.err !== "PASS"){
+            setPE2(myValidator("pwd2", pwd1, pwd2))
+            fields.current[4].focus()
+        }
     }
 
     const handleCopy = (e) => {
