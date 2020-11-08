@@ -47,10 +47,10 @@ const SideMenu = () => {
         <div>
             <MyAvatar/>
             <List>
-                {menus.map((item) => (
-                    <div>
+                {menus.map((item, index) => (
+                    <div key={index}>
                         <Divider/>
-                    <ListLink className={classes.listItems} href={item.addr}>
+                    <ListLink className={classes.listItems} href={item.addr} key={item}>
                         <ListItemText primary={item.text}/>
                         <ListItemIcon >
                             {item.icon()}

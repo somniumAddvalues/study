@@ -97,8 +97,6 @@ function MyPrevArrow(props) {
 
 const MyImg = (props) => {
 
-    console.log(props)
-
     return (
         <IMG src={props.src} />
     )
@@ -124,11 +122,11 @@ const MySlide = () => {
         className={classes.slideContainer}
         >
             <StyledSlider  {...settings}>
-                {[1, 2, 2].map(num => {
+                {[1, 2, 2].map((num, index) => {
                     const src = "/images/slide" + num + ".png"
 
                     return (
-                        <MyImg src={src}/>
+                        <MyImg src={src} key={index}/>
                     )
                 })}
             </StyledSlider>

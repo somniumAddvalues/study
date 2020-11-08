@@ -71,7 +71,7 @@ const LoginForm = () => {
                         <Checkbox 
                             checked={saveChecked} 
                             onChange= {handleCheck} 
-                            color="black"/> 
+                            color="default"/> 
                         }
                     label="아이디 기억하기"
                 />

@@ -60,93 +60,64 @@ const JoinForm = () => {
     const classes = useStyles()
 
     const [first_name, setFirst] = useState("")
-    const [first_error, setFE] = useState("PASS")
+    const [first_error, setFE] = useState({err: "INIT", msg: ""})
 
     const [second_name, setSecond] = useState("")
-    const [second_error, setSE] = useState("PASS")
+    const [second_error, setSE] = useState({err: "INIT", msg: ""})
 
     const [email, setEmail] = useState("")
-    const [email_error, setEE] = useState("PASS")
+    const [email_error, setEE] = useState({err: "INIT", msg: ""})
 
     const [pwd1, setPwd1] = useState("")
-    const [pwd1_error, setPE1] = useState("PASS")
+    const [pwd1_error, setPE1] = useState({err: "INIT", msg: ""})
 
     const [pwd2, setPwd2] = useState("")
-    const [pwd2_error, setPE2] = useState("PASS")
+    const [pwd2_error, setPE2] = useState({err: "INIT", msg: ""})
 
-    const first_name_field = useRef()
-    const second_name_field = useRef()
-    const email_field = useRef()
-    const pwd1_field = useRef()
-    const pwd2_field = useRef()
+    // input field 들의 레퍼런스 배열 (왼쪽 위부터 0, 1, 2, 3, 4)
+    const fields = useRef([])
 
-    const err_msg = {
-        PASS: "",
-        EMPTY: "필수 입력입니다",
-        EMAIL_NOT_CORRECT: "이메일 형식이 올바르지 않습니다",
-        PASSWORD_NOT_CORRECT: "비밀번호는 8자리 이상입니다",
-        PASSWORD_NOT_MATCH: "동일한 비밀번호를 입력해 주세요",
-    }
+    
 
     const outFocus = (event) => {
 
         switch(event.target.id){
             case "first-name-input":
-                if(first_name === ""){
-                    setFE("EMPTY")
-                }
-                else{
-                    setFE("PASS")
-                }
+                setFE(myValidator("first-name", first_name))
             break;
             case "second-name-input":
-                if(second_name === ""){
-                    setSE("EMPTY")
-                }
-                else{
-                    setSE("PASS")
-                }
+                setSE(myValidator("second-name", second_name))
             break;
             case "email-input":
-                if(myValidator("email", email)){
-                    setEE("PASS")
-                }
-                else if(email === ""){
-                    setEE("EMPTY")
-                }
-                else{
-                    setEE("EMAIL_NOT_CORRECT")
-                }
+                setEE(myValidator("email", email))
             break
             case "pwd1-input":
-                if(myValidator("pwd1", pwd1)){
-                    setPE1("PASS")
-                }
-                else if(pwd1 === ""){
-                    setPE1("EMPTY")
-                }
-                else{
-                    setPE1("PASSWORD_NOT_CORRECT")
-                }
+                setPE1(myValidator("pwd1", pwd1))
             break
             case "pwd2-input":
-                if(myValidator("pwd2", pwd2)){
-                    if(pwd2 !== pwd1){
-                        setPE2("PASSWORD_NOT_MATCH")
-                    }
-                    else{
-                        setPE2("PASS")
-                    }
-                }
-                else if(pwd2 === ""){
-                    setPE2("EMPTY")
-                }
-                else {
-                    setPE2("PASSWORD_NOT_CORRECT")
-                }
+                setPE2(myValidator("pwd2", pwd1, pwd2))
             break
         }
     }
+
+    useEffect(() => {
+        if(first_error.err !== "INIT")
+            setFE(myValidator("first-name", first_name))
+        if(second_error.err !== "INIT")
+            setSE(myValidator("second-name", second_name))
+        if(email_error.err !== "INIT")
+            setEE(myValidator("email", email))
+        if(pwd1_error.err !== "INIT")
+            setPE1(myValidator("pwd1", pwd1))
+        if(pwd2_error.err !== "INIT")
+            setPE2(myValidator("pwd2", pwd1, pwd2))
+        // if(first_name === "" && first_error !== "PASS"){
+        //     setFE("EMPTY")
+        // }
+        // else{
+        //     setFE("PASS")
+        // }
+    }, [first_name, second_name, email, pwd1, pwd2])
 
     const loginClicked = () => {
         /*fetch("/join", {
@@ -160,8 +131,7 @@ const JoinForm = () => {
                 "pwd2" : {pwd2}
             })
         })*/
-        first_name_field.current.focus()
-        console.log(first_name_field)
+        fields.current[0].focus()
     }
 
     const handleCopy = (e) => {
@@ -183,8 +153,8 @@ const JoinForm = () => {
             <Box className={classes.NameField}>
                 <TextField 
                 required
-                error={first_error !== "PASS"} 
-                helperText={err_msg[first_error]}
+                error={first_error.err !== "PASS" && first_error.err !== "INIT"} 
+                helperText={first_error.msg}
                 className= {classes.inputField} 
                 id="first-name-input" 
                 size="small" 
@@ -195,13 +165,13 @@ const JoinForm = () => {
                     setFirst(e.target.value)
                 }}
                 onBlur={outFocus}
-                inputRef={first_name_field}
+                inputRef={ref=>fields.current.push(ref)}
                 />
 
                 <TextField 
                 required
-                error={second_error !== "PASS"} 
-                helperText={err_msg[second_error]}
+                error={second_error.err !== "PASS" && second_error.err !== "INIT"} 
+                helperText={second_error.msg}
                 className= {classes.inputField} 
                 id="second-name-input" 
                 size="small" 
@@ -212,7 +182,7 @@ const JoinForm = () => {
                     setSecond(e.target.value)
                 }}
                 onBlur={outFocus}
-                inputRef={second_name_field}
+                inputRef={ref=>fields.current.push(ref)}
                 />
 
                 <Button
@@ -228,8 +198,8 @@ const JoinForm = () => {
             <Box className={classes.EmailField}>
                 <TextField 
                 required
-                error={email_error !== "PASS"} 
-                helperText={err_msg[email_error]}
+                error={email_error.err !== "PASS" && email_error.err !== "INIT"} 
+                helperText={email_error.msg}
                 className= {classes.inputField} 
                 id="email-input" 
                 size="small" 
@@ -240,7 +210,7 @@ const JoinForm = () => {
                     setEmail(e.target.value)
                 }}
                 onBlur={outFocus}
-                inputRef={email_field}
+                inputRef={ref=>fields.current.push(ref)}
                 />
 
                 <Button
@@ -255,8 +225,8 @@ const JoinForm = () => {
             </Box>
             <TextField 
             required
-            error={pwd1_error !== "PASS"} 
-            helperText={err_msg[pwd1_error]}
+            error={pwd1_error.err !== "PASS" && pwd1_error.err !== "INIT"} 
+            helperText={pwd1_error.msg}
             className= {classes.inputField} 
             id="pwd1-input" 
             size="small" 
@@ -268,12 +238,12 @@ const JoinForm = () => {
             }}
             onPaste={handleCopy}
             onBlur={outFocus}
-            inputRef={pwd1_field}
+            inputRef={ref=>fields.current.push(ref)}
             />
             <TextField 
             required
-            error={pwd2_error !== "PASS"} 
-            helperText={err_msg[pwd2_error]}
+            error={pwd2_error.err !== "PASS" && pwd2_error.err !== "INIT"} 
+            helperText={pwd2_error.msg}
             className= {classes.inputField} 
             id="pwd2-input" 
             size="small" 
@@ -285,7 +255,7 @@ const JoinForm = () => {
             type="password"
             onPaste={handleCopy}
             onBlur={outFocus}
-            inputRef={pwd2_field}
+            inputRef={ref=>fields.current.push(ref)}
             />
 
             <Button
