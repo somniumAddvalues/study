@@ -116,6 +116,31 @@ const JoinForm = () => {
     }, [first_name, second_name, email, pwd1, pwd2])
 
     const loginClicked = () => {
+        if(first_error.err !== "PASS"){
+            setFE(myValidator("first-name", first_name))
+            fields.current[0].focus()
+            return
+        }
+        else if(second_error.err !== "PASS"){
+            setSE(myValidator("second-name", second_name))
+            fields.current[1].focus()
+            return
+        }
+        else if(email_error.err !== "PASS"){
+            setEE(myValidator("email", email))
+            fields.current[2].focus()
+            return
+        }
+        else if(pwd1_error.err !== "PASS"){
+            setPE1(myValidator("pwd1", pwd1))
+            fields.current[3].focus()
+            return
+        }
+        else if(pwd2_error.err !== "PASS"){
+            setPE2(myValidator("pwd2", pwd1, pwd2))
+            fields.current[4].focus()
+            return
+        }
         /*fetch("/join", {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
@@ -127,26 +152,6 @@ const JoinForm = () => {
                 "pwd2" : {pwd2}
             })
         })*/
-        if(first_error.err !== "PASS"){
-            setFE(myValidator("first-name", first_name))
-            fields.current[0].focus()
-        }
-        else if(second_error.err !== "PASS"){
-            setSE(myValidator("second-name", second_name))
-            fields.current[1].focus()
-        }
-        else if(email_error.err !== "PASS"){
-            setEE(myValidator("email", email))
-            fields.current[2].focus()
-        }
-        else if(pwd1_error.err !== "PASS"){
-            setPE1(myValidator("pwd1", pwd1))
-            fields.current[3].focus()
-        }
-        else if(pwd2_error.err !== "PASS"){
-            setPE2(myValidator("pwd2", pwd1, pwd2))
-            fields.current[4].focus()
-        }
     }
 
     const handleCopy = (e) => {
