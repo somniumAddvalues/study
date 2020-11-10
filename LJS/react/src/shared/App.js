@@ -7,14 +7,14 @@ import styled from 'styled-components'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 
 const Body = styled.div`
-    padding-top: 70px;
+    padding-top: 5%;
 `
 
 // palette에선 primary, secondary, error, warning, info, success 총 6개를 지원함.
 const theme = createMuiTheme({
     palette: {
         primary: {
-            main: "#03a9f4",
+            main: "#06843A",
         },
         secondary: {
             main: "#5a8b5c"
@@ -29,29 +29,12 @@ const theme = createMuiTheme({
 // 보여준다. 즉, Longest Match Rule 방식으로 하자.
 class App extends Component {
 
-    state = {
-        SplitMe: null
-    }
-
-    showSplitMe = () => {
-        import('components/SplitMe').then(({default: Component}) => {
-
-            // setState가 실행되면 자동으로 리렌더링 된다.
-            this.setState({
-                SplitMe: Component
-            })
-        })
-    }
-
     render() {
-        const { SplitMe } = this.state
 
         return (
             <ThemeProvider theme={theme}>
                 <GNB/>
                 <Body>
-                    { SplitMe && <SplitMe/>}
-                    <button onClick={this.showSplitMe}>ClickMe</button>
                     <Route exact path="/" component={Home}/>
                     <Route path="/posts" component={Posts}/>
                     <Route path="/login" component={Login}/>
@@ -59,8 +42,7 @@ class App extends Component {
                     <Route path="/find/email" component={FindEmail}/>
                     <Test/>
                     <Switch>
-                        <Route path="/about/:name" component={About}/>
-                        <Route path="/about" component={About}/>
+                        <Route path="/about-us" component={About}/>
                     </Switch>
                 </Body>
             </ThemeProvider>

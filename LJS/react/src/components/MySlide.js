@@ -15,13 +15,13 @@ import Slider from 'react-slick'
 const useStyles = makeStyles(() => ({
     slideContainer: {
         overflow: "hidden",
-        maxWidth: "100%",
+        maxWidth: "60%",
     },
 }))
 
 const IMG = styled.img`
     width: 100%;
-    height: 30vh;
+    height: 40vh;
 `;
 
 // slick 클래스를 직접 수정

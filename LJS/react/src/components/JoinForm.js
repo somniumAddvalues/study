@@ -77,8 +77,6 @@ const JoinForm = () => {
     // input field 들의 레퍼런스 배열 (왼쪽 위부터 0, 1, 2, 3, 4)
     const fields = useRef([])
 
-    let focusIdx = 0
-
     // 커서 아웃될 때마다 유효성 검사
     const outFocus = (event) => {
 

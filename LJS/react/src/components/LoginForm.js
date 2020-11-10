@@ -90,7 +90,10 @@ const LoginForm = () => {
             로그인
             </Button>
 
-            <Link href="/join">
+            <Link 
+                href="/join"
+                style={{ textDecoration: 'none' }}
+                >
                 계정이 없으신가요? 회원가입 ㄱㄱ
             </Link>
 
