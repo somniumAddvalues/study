@@ -3,9 +3,9 @@
 block_cipher = None
 
 
-a = Analysis(['mainUI.py'],
+a = Analysis(['mainUI.py', 'crawller'],
              pathex=['C:\\Users\\82107\\Desktop\\hello-react\\datacrawling'],
-             binaries=[('chromedriver.exe', '.')],
+             binaries=[],
              datas=[],
              hiddenimports=[],
              hookspath=[],
@@ -23,7 +23,7 @@ exe = EXE(pyz,
           a.zipfiles,
           a.datas,
           [],
-          name='crawller',
+          name='mainUI',
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,

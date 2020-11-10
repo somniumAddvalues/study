@@ -11,6 +11,7 @@ import requests
 import shutil
 import json
 import csv
+import sys, os
 # 반복1: 기사번호를 변경시키면서 데이터 수집을 반복하기
 # 1 ~ 100까지 10단위로 반복(1, 11, ..., 91)
 
@@ -86,7 +87,8 @@ class insta:
 
         print("드라이버 로딩중...")
 
-        chrome_driver = './chromedriver'
+        # pyinstaller로 빌드해야 작동하는 코드
+        chrome_driver = os.path.join(sys._MEIPASS, "chromedriver.exe")
         driver = webdriver.Chrome(
             executable_path=chrome_driver,  chrome_options=options)
         driver.get(url) 
