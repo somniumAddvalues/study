@@ -2,6 +2,7 @@ package com.fastcampus.javaallinon.project3.demo.Repository;
 
 import com.fastcampus.javaallinon.project3.demo.domain.Person;
 import com.fastcampus.javaallinon.project3.demo.dto.Birthday;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,8 +26,8 @@ class PersonRepositoryTest {
         List<Person> result = personRepository.findByName("martin");
         assertThat(result.size()).isEqualTo(1);
         assertThat(result.get(0).getName()).isEqualTo("martin");
-        assertThat(result.get(0).getAge()).isEqualTo(10);
-        assertThat(result.get(0).getBloodType()).isEqualTo("A");
+
+//        assertThat(result.get(0).getBloodType()).isEqualTo("A");
     }
 
 //@Test
@@ -46,20 +47,15 @@ class PersonRepositoryTest {
 
 
 
-    @Test
-    void getPeopleBloodType(){
-        List<Person> result = personRepository.findByBloodType("A");
-        System.out.println(result.size());
-        assertThat(result.size()).isEqualTo(2);
-        assertThat(result.get(0).getName()).isEqualTo("martin");
-        assertThat(result.get(1).getName()).isEqualTo("benny");
-        //result.forEach(System.out::println);
 
-    }
     @Test
     void findByBirthdayBetween(){
 
         List<Person> result = personRepository.findByMonthOfBirthday(8);
+
+        Person marin = new Person();
+
+
         assertThat(result.size()).isEqualTo(2);
         assertThat(result.get(0).getName()).isEqualTo("martin");
 
