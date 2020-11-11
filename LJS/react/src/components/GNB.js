@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
         width: "15%",
     },
     search: {
+        display: "flex",
         flexBasis: "40%",
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
@@ -55,13 +56,16 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: "15%",
     },
     searchIcon: {
-        padding: theme.spacing(0, 2),
         height: '100%',
-        position: 'absolute',
-        pointerEvenets: 'none',
+        position: 'relative',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        padding: "1%",
+        marginRight: "1%",
+        '&:hover': {
+            backgroundColor: fade(theme.palette.common.white, 0),
+        },
     },
     aboutLink: {
         textDecoration: 'none',
@@ -76,14 +80,14 @@ const useStyles = makeStyles((theme) => ({
     },
     inputRoot: {
         display: "flex",
-        color: 'inherit'
+        color: 'inherit',
+        width: "100%"
     },
     inputInput: {
         // 검색 창 4방향 패딩 -> Search가 중앙에 오도록
         padding: theme.spacing(1, 1, 1, 0),
 
-        // 돋보기 아이콘과 입력 창(왼쪽에 패딩)을 떨어뜨림
-        paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+        paddingLeft: `calc(1em + ${theme.spacing(1)}px)`,
         transition: theme.transitions.create('width'),
         width: '100%',
         color: "black",
@@ -122,6 +126,14 @@ const GNB = () => {
         setToggle(!toggle)
     }
 
+    // e.preventDefault 는 form 태그의 href 기능을 중지시킴
+    const searchHandler = (e) => {
+        e.preventDefault()
+        const text = e.target.searchText.value
+
+        document.location.href = "/search?query=" + text
+    }
+
     return (
         <AppBar position="fixed" className={classes.Appbar}>
             
@@ -135,10 +147,9 @@ const GNB = () => {
                     >
                     <img className={classes.imgSize} src="/images/logo1.png"/ >
                 </IconButton>
-                <div className={classes.search}>
-                    <div className={classes.searchIcon}>
-                        <SearchIcon />
-                    </div>
+
+                <form className={classes.search} onSubmit= {searchHandler}>
+                    
                     <InputBase
                         placeholder="가치를 더해줄 활동을 찾아보세요!"
                         classes={{
@@ -146,8 +157,17 @@ const GNB = () => {
                             input: classes.inputInput
                         }}
                         inputProps={{ 'aria-label': 'search'}}
+                        name="searchText"
                     />
-                </div>
+                    <IconButton 
+                        className={classes.searchIcon}
+                        disableRipple
+                        type="submit"
+                        >
+                        <SearchIcon />
+                    </IconButton>
+                </form>
+
                 <Drawer classes={{paper: classes.drawerPaper}}  open={toggle} anchor="right" onClose={toggleClicked}>
                     <SideMenu/>
                 </Drawer>

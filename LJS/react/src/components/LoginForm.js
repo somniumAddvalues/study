@@ -13,7 +13,7 @@ import Link from '@material-ui/core/Link'
 const useStyles = makeStyles((theme) => ({
     mainContainer: {
         display: "flex",
-        border: "1px solid black",
+        //border: "1px solid black",
         flexDirection: "column",
         alignItems: "center",
     },

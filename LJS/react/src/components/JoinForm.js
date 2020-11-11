@@ -7,16 +7,13 @@ import Container from '@material-ui/core/Container'
 import Box from '@material-ui/core/Box'
 import TextField from '@material-ui/core/TextField'
 import Checkbox from '@material-ui/core/Checkbox'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import Link from '@material-ui/core/Link'
-import { FreeBreakfastOutlined } from '@material-ui/icons'
 
 
 
 const useStyles = makeStyles((theme) => ({
     mainContainer: {
         display: "flex",
-        border: "1px solid black",
+        //border: "1px solid black",
         flexDirection: "column",
         alignItems: "center",
     },

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { Route, Switch } from 'react-router-dom'
 //import { Home, About, Posts, Test, Login, Join, FindEmail } from 'pages'    // 코드 스플리팅 미적용
-import { Home, About, Posts, Test, Login, Join, FindEmail } from 'pages/index.async.js'    // 코드 스플리팅 적용
+import { Home, About, Search, Test, Login, Join, FindPassword } from 'pages/index.async.js'    // 코드 스플리팅 적용
 import { GNB } from 'components'
 import styled from 'styled-components'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
@@ -36,11 +36,10 @@ class App extends Component {
                 <GNB/>
                 <Body>
                     <Route exact path="/" component={Home}/>
-                    <Route path="/posts" component={Posts}/>
+                    <Route path="/search" component={Search}/>
                     <Route path="/login" component={Login}/>
                     <Route path="/join" component={Join}/>
-                    <Route path="/find/email" component={FindEmail}/>
-                    <Test/>
+                    <Route path="/find/email" component={FindPassword}/>
                     <Switch>
                         <Route path="/about-us" component={About}/>
                     </Switch>
