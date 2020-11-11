@@ -5,7 +5,7 @@ import qs from 'query-string'
 import {SearchBlock} from 'components'
 import Containter from '@material-ui/core/Container'
 
-력
+
 const Search = ({location, match}) => {
 
     const {

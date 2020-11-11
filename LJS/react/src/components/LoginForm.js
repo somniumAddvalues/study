@@ -19,13 +19,27 @@ const useStyles = makeStyles((theme) => ({
     },
     inputField: {
         width: "100%",
-        marginBottom: "10px",
+        marginBottom: "1%",
     },
     TextField: {
         display: "flex",
         width: "100%",
-        justifyContent: "space-between",
+        justifyContent: "flex-end",
         alignItems: "center",
+        marginBottom: "2%",
+    },
+    textPWD: {
+        color: "black",
+        fontWeight: "bold",
+        "&:hover": {
+            textDecoration: 'none'
+        },
+    },
+    textJoin: {
+        fontWeight: "bold",
+        "&:hover": {
+            textDecoration: 'none'
+        },
     },
     loginBt: {
         width: "100%"
@@ -66,7 +80,7 @@ const LoginForm = () => {
             <TextField className= {classes.inputField} id="password-input" label="패스워드" variant="outlined"/>
 
             <Box className={classes.TextField}>
-                <FormControlLabel
+                {/* <FormControlLabel
                     control={ 
                         <Checkbox 
                             checked={saveChecked} 
@@ -74,9 +88,12 @@ const LoginForm = () => {
                             color="default"/> 
                         }
                     label="아이디 기억하기"
-                />
-                <Link href="/find/email">
-                    기억이 안나시나요?
+                /> */}
+                <Link 
+                    className={classes.textPWD}
+                    href="/find/email"
+                    >
+                    비밀번호 찾기
                 </Link>
             </Box>
 
@@ -89,14 +106,15 @@ const LoginForm = () => {
                 >
             로그인
             </Button>
-
-            <Link 
-                href="/join"
-                style={{ textDecoration: 'none' }}
-                >
-                계정이 없으신가요? 회원가입 ㄱㄱ
-            </Link>
-
+            <div>
+                <span>아직 더함의 Addee가 아니신가요?&nbsp;&nbsp;&nbsp;</span>
+                <Link 
+                    className={classes.textJoin}
+                    href="/join"
+                    >
+                    회원가입
+                </Link>
+            </div>
         </Container>
     )
 }
